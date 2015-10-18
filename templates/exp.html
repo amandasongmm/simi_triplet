@@ -453,7 +453,8 @@
 
     var trial_chunk = {
     chunk_type: 'linear',
-    timeline: [test_triplet1_block, test_doublet1_block,test_triplet2_block,break2_block,test_doublet2_block,test_triplet3_block,test_triplet4_block]
+    // timeline: [test_triplet1_block, test_doublet1_block,test_triplet2_block,break2_block,test_doublet2_block,test_triplet3_block,test_triplet4_block]
+    timeline: [test_triplet1_block, test_triplet2_block,break2_block,test_triplet3_block,test_triplet4_block]
     }
 
     /* create experiment definition array */
@@ -461,11 +462,11 @@
     var experiment = [];
     experiment.push(face_images_explore_ready_block);
     experiment.push(face_example_chunk);
-    experiment.push(instruction_doublet_chunk);
+    // experiment.push(instruction_doublet_chunk);
     experiment.push(instruction_triplet_chunk);
     experiment.push(bad_examples_ready_block);
     experiment.push(bad_examples_chunk);
-    experiment.push(prac_no_inst_doublet_block);
+    // experiment.push(prac_no_inst_doublet_block);
     experiment.push(prac_no_inst_triplet_block);
     experiment.push(test_ready_block);
     experiment.push(trial_chunk);
