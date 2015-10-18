@@ -1,0 +1,12 @@
+Hi, all. 
+
+I have noticed that the Psiturk we installed now is not the newest version, hence the duration of the hits created is limited to be an integer that only indicates time in hours. If you wish to generate hits through your terminal and be able to specify the time in minutes, I highly recommend you all to install the develop version of Psiturk.
+
+Here is the command you may use:
+sudo pip install git+git://github.com/NYUCCL/psiTurk.git@dev
+
+Have fun!
+
+
+Best,
+Linjie
