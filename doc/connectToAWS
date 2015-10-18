@@ -1,0 +1,2 @@
+cd Downloads
+ssh -i faceKey.pem ec2-user@52.24.142.90

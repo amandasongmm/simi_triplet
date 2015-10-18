@@ -1,0 +1,14 @@
+Open terminal in Ubuntu or Mac
+Remember to git pull first
+
+cd Downloads
+chmod 400 faceKey.pem
+scp -i faceKey.pem ec2-user@52.24.142.90:~/simi/amandaTest1.db ~/simi/parser/
+
+git push
+
+python parser.py <path to your participants.db>(amandaTest1.db)
+
+** general version
+scp -i ~/.ssh/howareyou.pem ec2-user@52.7.51.217:~/simi/participants.db /your/local/path/
+

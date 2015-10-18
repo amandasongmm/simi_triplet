@@ -1,0 +1,15 @@
+in MATLAB
+mdscale
+cmdscale
+( classical MDS is worth implementing from scratch by yourself once, as an exercise, it's not that hard)
+
+in SPSS or SAS
+
+ALSCAL - this is what everyone (in psych) uses - handles multiple subjects
+eventually I want to write my own multi subject method, but we can try this one - it is VERY limited (six dimensions for example), only due to limitations of the software. 
+
+the fortran source is available too - or you can use it in SPSS or SAS
+(or if you're adventurous, you can try to port it to python, using a fortran to python convertor - that might make you a hero, or it 
+
+there is an R implementation by one of ht authors of ALSCAL, I forget what it's called, but Jan de Leeuw wrote it, I can look for it - this is open source, that's nice - I"m not sure if it does all that ALSCAL did
+https://cran.r-project.org/web/packages/smacof/index.html

@@ -1,0 +1,20 @@
+This document will guide you through the functions of each file in this folder.
+
+Psiturk only support html file with specific names.
+ad.html consent.html complete.html default.html error.html exp.html thanks.html
+
+The main part of our experiment is coded in exp.html
+ 
+If you want to run the experiment, make sure that the files you want include is under the name exp.html
+
+In the folder expvariant, there are 3 different versions of exp.html, which usually will meet your needs
+
+expReal.html is for generating the real hits, which utilizes counter.txt update_counter.php and give_counter.php stored in the server.
+
+expDebug.html is for debugging and testing hits in sandbox mode. It accesses counterDebug.txt update_counterDebug.php and give_counterDebug.php stored in the server.
+
+expRepeat.html is for pre-testing among the lab members. Depends on the aim of the testing, you can change the counter files to be the ones that suit your goal.
+
+The server is set to be Linjie Li’s AWS server by default. If you want to change it to your own server. Please follow the instructions provided by Mark Chen and make sure your LAMP web server is installed and functional.
+
+

@@ -1,0 +1,73 @@
+1. Jackie (done)
+http://52.24.142.90:22362/ad?assignmentId=debugHMW9LO&hitId=debugUR5VB7&workerId=debugLK7MDR&mode=debug
+
+
+2. Vicente
+http://52.24.142.90:22362/ad?assignmentId=debugUC3EDL&hitId=debugFJMYG8&workerId=debugHA1CLA&mode=debug
+
+
+
+3. Angela
+http://52.24.142.90:22362/ad?assignmentId=debugBV4FHP&hitId=debugAN4YYU&workerId=debugITUUQD&mode=debug
+
+
+4. Mark
+http://52.24.142.90:22362/ad?assignmentId=debugTG0AA1&hitId=debugAD0CEK&workerId=debugMGHMKI&mode=debug
+
+
+
+5. Sheeraz
+http://52.24.142.90:22362/ad?assignmentId=debugP2NS8V&hitId=debugV11OE5&workerId=debugAFSLN9&mode=debug
+
+
+6. Ning
+http://52.24.142.90:22362/ad?assignmentId=debug5K686P&hitId=debugC2TAQH&workerId=debug9W3COB&mode=debug
+
+7. Tomoki
+http://52.24.142.90:22362/ad?assignmentId=debugZTF4AI&hitId=debugPMFH95&workerId=debug97999S&mode=debug
+
+
+8. Shunan
+http://52.24.142.90:22362/ad?assignmentId=debug9X9GZT&hitId=debugNVJ3H1&workerId=debugO83MFY&mode=debug
+
+9. Yixing Lao
+ http://52.24.142.90:22362/ad?assignmentId=debugWAOD1U&hitId=debugAPRC85&workerId=debugZB4WKT&mode=debug
+
+
+10.
+http://52.24.142.90:22362/ad?assignmentId=debugK2G6N5&hitId=debugQPL7ZC&workerId=debugKSXJHK&mode=debug
+
+
+11.
+http://52.24.142.90:22362/ad?assignmentId=debugHTCCOK&hitId=debugCWVWXE&workerId=debugGZS2HP&mode=debug
+
+12.
+http://52.24.142.90:22362/ad?assignmentId=debugYJ9UY6&hitId=debugUD6L4V&workerId=debugRFZ74V&mode=debug
+
+13.
+http://52.24.142.90:22362/ad?assignmentId=debug69BIJG&hitId=debugYU1GVX&workerId=debugYHU8XA&mode=debug
+
+14.
+http://52.24.142.90:22362/ad?assignmentId=debugVM7XEV&hitId=debug1R9BH8&workerId=debug17ZZIP&mode=debug
+
+15.
+http://52.24.142.90:22362/ad?assignmentId=debug1JZN7N&hitId=debug1FRNFH&workerId=debugHB8JA2&mode=debug
+
+16.Amanda 2(worked)
+http://52.24.142.90:22362/ad?assignmentId=debugHL08JA&hitId=debugT18D74&workerId=debugK4NLXP&mode=debug
+
+
+17.Jackie(doesn't work, might expire)
+http://52.24.142.90:22362/ad?assignmentId=debugBT1G5J&hitId=debug7QOF5N&workerId=debugZL48Y2&mode=debug
+
+
+18.Linjie(worked)
+http://52.24.142.90:22362/ad?assignmentId=debugXRI15V&hitId=debugCP5QRD&workerId=debugWZ100H&mode=debug
+
+
+19.Jackie. (doesn't work, might expire)
+http://52.24.142.90:22362/ad?assignmentId=debugZW0FFW&hitId=debugI22B0R&workerId=debugKPDA1X&mode=debug
+
+20.interal test1 Amanda (11)worked, saved as amandatest1.db
+http://52.24.142.90:22362/ad?assignmentId=debugIJTH5Z&hitId=debugIVM2SR&workerId=debugURZBAF&mode=debug
+

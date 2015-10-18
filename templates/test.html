@@ -1,0 +1,30 @@
+<html>
+<head>
+    <script type="text/javascript" src="../static/lib/jquery.js"></script>
+    <script src="../static/lib/jquery-min.js" type="text/javascript"></script>
+    <script src="../static/lib/bootstrap.min.js" type="text/javascript"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+</head>
+<body>HAHA</body>
+</html>
+
+<script>
+// This script increments the counter by 1
+htmlobj = $.ajax({
+	url: "http://52.27.151.244/update_counter.php",
+	async: false,
+	method: "POST",
+	data: { assignmentID: '1', workerID: '12', hitID: '3'}
+});
+console.log('Updated counter: ' + htmlobj.responseText);
+
+//This script gets the counter value
+htmlobj = $.ajax({
+	url: "http://52.27.151.244/give_counter.php",
+	async: false,
+	method: "POST",
+	data: { assignmentID: '1', workerID: '12', hitID: '3'}
+});
+console.log('Current counter: ' + htmlobj.responseText);
+
+</script>
