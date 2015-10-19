@@ -44,7 +44,7 @@
     var adServerLoc = "{{ adServerLoc }}"; // the location of your ad (so you can send user back at end of experiment)
     var mode = "{{ mode }}"; // is this running live, sandbox, or in debug mode?
     htmlobj = $.ajax({
-      url: "http://52.27.151.244/update_counterDebug.php",
+      url: "http://52.23.229.132/update_counterDebug.php",
       async: false,
       method: "POST",
       data: { assignmentID: assignmentId, workerID: workerId, hitID: '3'}
@@ -53,7 +53,7 @@
 
 
     htmlobj = $.ajax({
-      url: "http://52.27.151.244/give_counterDebug.php",
+      url: "http://52.23.229.132/give_counterDebug.php",
       async: false,
       method: "POST",
       data: { assignmentID: assignmentId, workerID: workerId, hitID: '3'}
@@ -442,16 +442,16 @@
     /* create experiment definition array */
 
     var experiment = [];
-    // experiment.push(face_images_explore_ready_block);
-    // experiment.push(face_example_chunk);
-    // // experiment.push(instruction_doublet_chunk);
-    // experiment.push(instruction_triplet_chunk);
-    // experiment.push(bad_examples_ready_block);
-    // experiment.push(bad_examples_chunk);
-    // // experiment.push(prac_no_inst_doublet_block);
-    // experiment.push(prac_no_inst_triplet_block);
-    // experiment.push(test_ready_block);
-    // experiment.push(trial_chunk);
+    experiment.push(face_images_explore_ready_block);
+    experiment.push(face_example_chunk);
+    // experiment.push(instruction_doublet_chunk);
+    experiment.push(instruction_triplet_chunk);
+    experiment.push(bad_examples_ready_block);
+    experiment.push(bad_examples_chunk);
+    // experiment.push(prac_no_inst_doublet_block);
+    experiment.push(prac_no_inst_triplet_block);
+    experiment.push(test_ready_block);
+    experiment.push(trial_chunk);
     experiment.push(welcome_survey_new_block);
     experiment.push(complete_block);
 
