@@ -309,7 +309,7 @@
     for ( var i = 0; i< 4; i++){
       catchy_index = getRandomInt (0, max);
       doublet_stim[i] = [].concat(doublet_stim_f);
-      triplet_stim[i] = [].concat(triplet_stim_f);
+      triplet_stim[i] = [].concat(triplet_stim_f.slice(i*50, i*50+50));
       doublet_stim[i].push([temp[i],temp[i]]);
       triplet_stim[i].push(prac_doublet_stim_f[catchy_index]);
       doublet_stim[i] = jsPsych.randomization.repeat(doublet_stim[i],1);
