@@ -34,13 +34,13 @@ def get_triplet_data(raw_json):
         if 'custom_triplet' in entry['trialdata']['trial_type']:
             triplet = {}
             triplet['stimuli'] = ujson.loads(entry['trialdata']['stimulus'])
-            triplet['stimuli'][1] = triplet['stimuli'][1][24:-4]
-            triplet['stimuli'][0] = triplet['stimuli'][0][24:-4]
-            triplet['stimuli'][2] = triplet['stimuli'][2][24:-4]
+            triplet['stimuli'][1] = triplet['stimuli'][1][21:-4]
+            triplet['stimuli'][0] = triplet['stimuli'][0][21:-4]
+            triplet['stimuli'][2] = triplet['stimuli'][2][21:-4]
             triplet['pressed'] = ujson.loads(entry['trialdata']['pressed'])
             triplet['response'] = ujson.loads(entry['trialdata']['response'])
-            triplet['response'][1] = triplet['response'][1][24:-4]
-            triplet['response'][0] = triplet['response'][0][24:-4]
+            triplet['response'][1] = triplet['response'][1][21:-4]
+            triplet['response'][0] = triplet['response'][0][21:-4]
             triplet['type'] = entry['trialdata']['type']
             if (triplet['stimuli'][0] == triplet['stimuli'][1] or triplet['stimuli'][0] == triplet['stimuli'][2] or triplet['stimuli'][1] == triplet['stimuli'][2]):
                 triplet['type'] = '3'
@@ -61,8 +61,8 @@ def get_doublet_data(raw_json):
         if 'similarity_custom' in entry['trialdata']['trial_type']:
             doublet = {}
             doublet['stimuli'] = ujson.loads(entry['trialdata']['stimulus'])
-            doublet['stimuli'][1] = doublet['stimuli'][1][24:-4]
-            doublet['stimuli'][0] = doublet['stimuli'][0][24:-4]
+            doublet['stimuli'][1] = doublet['stimuli'][1][21:-4]
+            doublet['stimuli'][0] = doublet['stimuli'][0][21:-4]
             doublet['type'] = entry['trialdata']['type']
             if (doublet['stimuli'][1] == doublet['stimuli'][0]):
                 doublet['score'] = entry['trialdata']['catchy_answer']
@@ -80,7 +80,7 @@ def get_doublet_data(raw_json):
             doublets.append(doublet)
     return doublets
 
-def parse(raw_json):
+def parse_single_subject(raw_json):
     subject_data = get_subject_data(raw_json)
     triplet_data = get_triplet_data(raw_json)
     doublet_data = get_doublet_data(raw_json)
@@ -91,12 +91,12 @@ def parse(raw_json):
     return combined_data
 
 if __name__=='__main__':
-
+    output_folder = sys.argv[2]
     raw_jsons = get_database_data(sys.argv[1])
-    if not os.path.exists('experiment_data'):
-        os.makedirs('experiment_data')
+    if not os.path.exists(output_folder):
+        os.makedirs(output_folder)
     workerCounter = 1
-    output_file_name_with_path = 'experiment_data/'
+    output_file_name_with_path = output_folder + '/'
     with open(output_file_name_with_path +'subjectData.csv', 'w') as f:
         f.write('workerCounter,assignmentId,workerId,hitId,age,gender,sexual orientation,race,community\n')
     with open(output_file_name_with_path + 'doublet.csv', 'w') as f:
@@ -106,7 +106,7 @@ if __name__=='__main__':
         f.write('workerCounter,assignmentId,workerId,hitId,trial type,set,global index,reaction time,response1,response2,responseLoc1,responseLoc2,stimulus1,stimulus2,stimulus3\n')
 
     for raw_json in raw_jsons:
-        data = parse(raw_json)
+        data = parse_single_subject(raw_json)
         #output_folder_name = str(workerCounter)
         with open(output_file_name_with_path + 'doublet.csv', 'a') as f:
             for entry in data['doublet_data']:
@@ -134,13 +134,17 @@ if __name__=='__main__':
                     concat_str += str(stimulus) + ','
                 f.write(concat_str[:-1] + '\n')
 
-        with open('experiment_data/subjectData.csv', 'a') as f:
-            f.write(str(workerCounter) + ',' + str(data['subject_data']['assignmentId']) + ',' +\
-                    str(data['subject_data']['workerId']) + ',' +\
-                    str(data['subject_data']['hitId']) + ',' +\
-                    str(data['subject_data']['age']) + ',' +\
-                    str(data['subject_data']['gender'][0]) + ',' +\
-                    str(data['subject_data']['sexOri'][0]) + ',')
+        with open(output_folder + '/subjectData.csv', 'a') as f:
+            try:
+                f.write(str(workerCounter) + ',' + str(data['subject_data']['assignmentId']) + ',' +\
+                        str(data['subject_data']['workerId']) + ',' +\
+                        str(data['subject_data']['hitId']) + ',' +\
+                        str(data['subject_data']['age']) + ',' +\
+                        str(data['subject_data']['gender'][0]) + ',' +\
+                        str(data['subject_data']['sexOri'][0]) + ',')
+            except KeyError:
+                print 'IndexError: ' + str(data)
+                continue
             concat_str = ""
             for item in data['subject_data']['race']:
                 concat_str += str(item) + ' '

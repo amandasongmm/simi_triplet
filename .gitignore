@@ -10,3 +10,5 @@
 /static/images/EclipseFace/
 /static/images/EclipseFace/*
 /linzyliTest1.db
+
+*.DS_Store
