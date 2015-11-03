@@ -5,7 +5,6 @@ Created on Sat Oct 31 16:59:29 2015
 @author: amand_000
 """
 
-import pandas as pd
 import csv
 from scipy.io import savemat
 from numpy import array
@@ -60,3 +59,5 @@ for entry in raw_results:
 with open('faceTriplet.csv', 'w') as f:
     for result in results:
         f.write(','.join(result) + '\n')
+
+#savemat('testSave',result)
