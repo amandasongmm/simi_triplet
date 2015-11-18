@@ -43,38 +43,20 @@
     var assignmentId = ids[1];
     var adServerLoc = "{{ adServerLoc }}"; // the location of your ad (so you can send user back at end of experiment)
     var mode = "{{ mode }}"; // is this running live, sandbox, or in debug mode?
-    htmlobj = $.ajax({
-      url: "http://52.24.142.90/update_counter.php",
-      async: false,
-      method: "POST",
-      data: { assignmentID: assignmentId, workerID: workerId, hitID: '3'}
-    });
-    console.log('Updated counter: ' + htmlobj.responseText);
-
-
-    htmlobj = $.ajax({
-      url: "http://52.24.142.90/give_counter.php",
-      async: false,
-      method: "POST",
-      data: { assignmentID: assignmentId, workerID: workerId, hitID: '3'}
-    });
-    var outputCounter = htmlobj.responseText;
-    console.log('Current counter: ' + outputCounter);
-    var counter = parseInt(outputCounter.split(' ')[3]);
 
         //read a text file
     function readTextFile(file){
        htmlobj=$.ajax({url:file,async:false});
-       var list = htmlobj.responseText;
-       var listArray = list.split(/\n/g);
-       for (a in listArray ) {
-           listArray[a] = listArray[a].split(","); 
-           for( b in listArray[a]){
-             listArray[a][b] = 'http://52.23.229.132/2kFemale/' + listArray[a][b];
+       var lines = htmlobj.responseText;
+       var lineArray = lines.split(/\n/g);
+       for (a in lineArray) {
+           lineArray[a] = lineArray[a].split(","); 
+           for( b in lineArray[a]){
+             lineArray[a][b] = 'http://52.23.229.132/2kFemale/' + lineArray[a][b];
            }
        }
-       listArray = listArray.slice(0,listArray.length-1);
-       return listArray;
+       lineArray = lineArray.slice(0,lineArray.length-1);
+       return lineArray;
    }
 
     var post_trial_gap = function() {
@@ -256,7 +238,7 @@
       timing_post_trial: post_trial_gap
     };
 
-    var break2_block = {
+    var break_block = {
       type: "text",
       text: '<div class="well"><p class="emp">Well done!</p> <p>You have finished 1/2 of the experiment. Take a short break!</p> <p>Click <span class="emp">Continue</span> when you are ready to proceed. </p> <br></div>',
       timing_post_trial: post_trial_gap
@@ -270,58 +252,52 @@
 
 
     /* define test block */
-    var setNumber = counter;
-    var repNumber = counter%5+1;
-    var doublet_stim_f = readTextFile("https://raw.githubusercontent.com/amandasongmm/filesPublic/master/august/doubletPilot.txt");
-    var triplet_stim_f = readTextFile("https://raw.githubusercontent.com/amandasongmm/filesPublic/master/oct_triplet_only/tri_set" + setNumber.toString() + '.txt');
-    var prac_doublet_stim_f = readTextFile("https://raw.githubusercontent.com/amandasongmm/filesPublic/master/sampleMethod1/sampleMethod1_set10rep1.txt");
+    var triplet_stim_f = readTextFile("https://raw.githubusercontent.com/amandasongmm/filesPublic/master/nov_100.csv");
     var prac_triplet_stim_f = readTextFile("https://raw.githubusercontent.com/amandasongmm/filesPublic/master/august/tripletPractice.txt");
+
     function getAllImages() {
-      var images = []
-      images = images.concat(prac_doublet_stim_f);
-      images = images.concat(prac_triplet_stim_f);
-      images = images.concat(doublet_stim_f);
-      images = images.concat(triplet_stim_f);
+      var image_hash = [];
+      for (var image_array in arguments){
+        for (var image_url in image_array){
+          image_hash[image_url] = 1;
+        }
+      }
+      var images = [];
+      for (var image_url in image_hash){
+        images.push(image_url);
+      }
       return images;
     }
-    
-    var prac_doublet_stim = [prac_doublet_stim_f[0]];
+
     var prac_triplet_stim = [prac_triplet_stim_f[0]];
-    var prac_no_inst_doublet_stim = prac_doublet_stim_f.slice(2,4);
     var prac_no_inst_triplet_stim = prac_triplet_stim_f.slice(2,4);
 
 
     function getRandomInt (min, max) {
-    return Math.floor(Math.random() * (max - min + 1)) + min;
+      return Math.floor(Math.random() * (max - min + 1)) + min;
     }
 
     //catchy question
-    max = prac_triplet_stim_f.length;
-    var catchy_index = getRandomInt (1, max);
-    var doublet_catchy = []
-    var triplet_catchy = []
-    var doublet_stim = []
-    var triplet_stim = []
-    var temp = prac_triplet_stim_f[catchy_index];
-    temp.push(prac_triplet_stim_f[catchy_index+1][0]);
-    max = prac_doublet_stim_f.length;
+    var num_phases = 2;
+    var triplet_stim = [];
+    for ( var i = 0; i < num_phases; i++){
+      catchy_index = getRandomInt (0, triplet_stim_f.length);
 
-    for ( var i = 0; i< 4; i++){
-      catchy_index = getRandomInt (0, max);
-      doublet_stim[i] = [].concat(doublet_stim_f);
+      // concatenate triplet_stimlist with a list of 50 stimuli.
       triplet_stim[i] = [].concat(triplet_stim_f.slice(i*50, i*50+50));
-      doublet_stim[i].push([temp[i],temp[i]]);
-      triplet_stim[i].push(prac_doublet_stim_f[catchy_index]);
-      doublet_stim[i] = jsPsych.randomization.repeat(doublet_stim[i],1);
+
+      // Make a cachy stimulus: randomly pick a stimulus from triplet_stim_f,
+      //   replacing the third image as the first. Then randomize this stimulus.
+      cachy_stimulus = triplet_stim_f[catchy_index];
+      cachy_stimulus[2] = cachy_stimulus[0];
+      cachy_stimulus = jsPsych.randomization.repeat(cachy_stimulus, 1);
+
+      // Push this cachy stimulus into triplet_stim, then randomize triplet_stim
+      triplet_stim[i].push(cachy_stimulus);
       triplet_stim[i] = jsPsych.randomization.repeat(triplet_stim[i],1);
     }
-    var test_doublet1_stim = doublet_stim[0].concat(doublet_stim[3]);
-    var test_doublet2_stim = doublet_stim[1].concat(doublet_stim[2]);
     var test_triplet1_stim = triplet_stim[0];
     var test_triplet2_stim = triplet_stim[1];
-    var test_triplet3_stim = triplet_stim[2];
-    var test_triplet4_stim = triplet_stim[3];
-    console.log(triplet_stim);
 
     /*test_doublet1_stim = test_doublet1_stim.slice(0,2);
     test_doublet2_stim = test_doublet2_stim.slice(0,2);
@@ -331,38 +307,13 @@
     test_triplet1_stim = test_triplet1_stim.slice(0,2);*/
 
     //practice with instruction blocks
-    var trial_num = 0;
-    var prac_doublet_block = {
-      type: 'similarity_custom',
-      stimuli: prac_doublet_stim,
-      text: '<div style="text-align: left; margin-top:30px;"> <p>This is an example of a <span class = "emp">Face Pair Task</span>, your need to rate how similar a face pair is from <span class="emp">1</span> to <span class="emp">9</sapn>.</p> <p><span class="emp">1</span> indicates <span class="emp">Maximally Dissimilar</span>, <span class="emp">9</span> indicates <span class="emp">Maximally Similar</span></p> <p> If you see two identical faces, please click the <span class="emp">identical</span> button.</p> <p> <em class="emp">Try to focus on the face features and ignore the pose, expression and lighting influence.</em></p></div><br><br>',
-      timing_post_trial: post_trial_gap,
-      trial_num: trial_num,
-      set_num: 1
-    };
-    trial_num +=1;
-    var instruction_doublet_chunk = {
-        chunk_type: 'while',
-        timeline: [prac_doublet_block,prac1_end_block],
-        continue_function: function(){
-          var back_button = document.getElementById('Back').clicked;
-            $('.well').remove();
-            $('.jspsych-survey-text').remove();
-            if( back_button){
-              return true;
-            }
-            else{
-              return false;
-            } 
-        }
-    };
+    trial_num =1;
     var prac_triplet_block = {
       type: 'custom_triplet',
       stimuli: prac_triplet_stim,
       text: '<div style="text-align: left; margin-top:30px;"> <p>This is an example of a <span class="emp">Face Triplet Task</span>, you need to <span class="emp">click on the two images</span> that look most similar to you.</div>',
       timing_post_trial: post_trial_gap,
       trial_num: trial_num,
-      set_num: 1
     };
     var instruction_triplet_chunk = {
         chunk_type: 'while',
@@ -380,19 +331,11 @@
         }
     };
     //practice with no instruction blocks
-    var prac_no_inst_doublet_block = {
-      type: 'similarity_custom',
-      stimuli: prac_no_inst_doublet_stim,
-      timing_post_trial: post_trial_gap,
-      trial_num: trial_num,
-      set_num: 1
-    };
     var prac_no_inst_triplet_block = {
       type: 'custom_triplet',
       stimuli: prac_no_inst_triplet_stim,
       timing_post_trial: post_trial_gap,
       trial_num: trial_num,
-      set_num: 1
     };
     trial_num +=1;
     phase_num  = 1;
@@ -403,7 +346,6 @@
       timing_post_trial: post_trial_gap,
       trial_num: trial_num,
       phase: phase_num,
-      set_num:setNumber
     };  
     phase_num +=1;
     var test_triplet2_block = {
@@ -412,35 +354,28 @@
       timing_post_trial: post_trial_gap,
       trial_num: trial_num,
       phase: phase_num,
-      set_num:setNumber
     };
     phase_num +=1;
-
     var test_triplet3_block = {
       type: 'custom_triplet',
-      stimuli: test_triplet3_stim,
+      stimuli: test_triplet1_stim,
       timing_post_trial: post_trial_gap,
       trial_num: trial_num,
       phase: phase_num,
-      set_num:setNumber
-    };
+    };  
     phase_num +=1;
     var test_triplet4_block = {
       type: 'custom_triplet',
-      stimuli: test_triplet4_stim,
+      stimuli: test_triplet2_stim,
       timing_post_trial: post_trial_gap,
       trial_num: trial_num,
       phase: phase_num,
-      set_num:setNumber
     };
 
     var trial_chunk = {
-    chunk_type: 'linear',
-    // timeline: [test_triplet1_block, test_doublet1_block,test_triplet2_block,break2_block,test_doublet2_block,test_triplet3_block,test_triplet4_block]
-    timeline: [test_triplet1_block, test_triplet2_block,break2_block,test_triplet3_block,test_triplet4_block]
+      chunk_type: 'linear',
+      timeline: [test_triplet1_block, test_triplet2_block, break_block, test_triplet3_block, test_triplet4_block]
     }
-
-    /* create experiment definition array */
 
     var experiment = [];
     experiment.push(face_images_explore_ready_block);
