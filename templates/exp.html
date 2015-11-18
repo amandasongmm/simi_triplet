@@ -256,19 +256,18 @@
     var prac_triplet_stim_f = readTextFile("https://raw.githubusercontent.com/amandasongmm/filesPublic/master/august/tripletPractice.txt");
 
     function getAllImages() {
-      var image_hash = [];
-      for (var image_array in arguments){
-        for (var image_url in image_array){
-          image_hash[image_url] = 1;
+        var image_hash = [];
+        for (var i = 0; i < arguments.length; ++i){
+            for (var image_url in arguments[i]){
+                image_hash[image_url] = 1;
+            }
         }
-      }
-      var images = [];
-      for (var image_url in image_hash){
-        images.push(image_url);
-      }
-      return images;
+        var images = [];
+        for (var image_url in image_hash){
+            images.push(image_url);
+        }
+        return images;
     }
-
     var prac_triplet_stim = [prac_triplet_stim_f[0]];
     var prac_no_inst_triplet_stim = prac_triplet_stim_f.slice(2,4);
 
