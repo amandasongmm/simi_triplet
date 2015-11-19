@@ -1,0 +1,4 @@
+在simi_triplet文件夹下打git branch nov100 
+&& git checkout nov100 
+&& git pull origin nov100
+把代码换到nov100
