@@ -283,11 +283,12 @@
     //catchy question
     var num_phases = 2;
     var triplet_stim = [];
+    num_stimuli_each_phase = triplet_stim_f.length / num_phases;
     for ( var i = 0; i < num_phases; i++){
       catchy_index = getRandomInt (0, triplet_stim_f.length);
 
       // concatenate triplet_stimlist with a list of 50 stimuli.
-      triplet_stim[i] = [].concat(triplet_stim_f.slice(i*50, i*50+50));
+      triplet_stim[i] = [].concat(triplet_stim_f.slice(i*num_stimuli_each_phase, (i+1)*num_stimuli_each_phase));
 
       // Make a cachy stimulus: randomly pick a stimulus from triplet_stim_f,
       //   replacing the third image as the first. Then randomize this stimulus.
