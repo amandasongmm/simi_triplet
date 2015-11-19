@@ -285,7 +285,7 @@
     var triplet_stim = [];
     var num_stimuli_each_phase = triplet_stim_f.length / num_phases;
     for ( var i = 0; i < num_phases; i++){
-      var catchy_index = getRandomInt (0, triplet_stim_f.length);
+      var catchy_index = getRandomInt (0, num_stimuli_each_phase);
 
       // concatenate triplet_stimlist with a list of 50 stimuli.
       triplet_stim[i] = [].concat(triplet_stim_f.slice(i*num_stimuli_each_phase, (i+1)*num_stimuli_each_phase));
@@ -293,8 +293,9 @@
       // Make a cachy stimulus: randomly pick a stimulus from triplet_stim_f,
       //   replacing the third image as the first. Then randomize this stimulus.
       var cachy_stimulus = [];
-      for (var image_url in triplet_stim[catchy_index]){
-        cachy_stimulus.push(image_url);
+      for (var j = 0; j < triplet_stim[i][catchy_index].length; ++j){
+          image_url = triplet_stim[i][catchy_index][j];
+          cachy_stimulus.push(image_url);
       }
       cachy_stimulus[2] = cachy_stimulus[0];
       cachy_stimulus = jsPsych.randomization.repeat(cachy_stimulus, 1);
