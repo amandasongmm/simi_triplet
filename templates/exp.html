@@ -306,6 +306,8 @@
     }
     var test_triplet1_stim = triplet_stim[0];
     var test_triplet2_stim = triplet_stim[1];
+    var test_triplet3_stim = jsPsych.randomization.repeat(triplet_stim[0],1);;
+    var test_triplet4_stim = jsPsych.randomization.repeat(triplet_stim[1],1);
 
     /*test_doublet1_stim = test_doublet1_stim.slice(0,2);
     test_doublet2_stim = test_doublet2_stim.slice(0,2);
@@ -366,7 +368,7 @@
     phase_num +=1;
     var test_triplet3_block = {
       type: 'custom_triplet',
-      stimuli: test_triplet1_stim,
+      stimuli: test_triplet3_stim,
       timing_post_trial: post_trial_gap,
       trial_num: trial_num,
       phase: phase_num,
@@ -374,7 +376,7 @@
     phase_num +=1;
     var test_triplet4_block = {
       type: 'custom_triplet',
-      stimuli: test_triplet2_stim,
+      stimuli: test_triplet4_stim,
       timing_post_trial: post_trial_gap,
       trial_num: trial_num,
       phase: phase_num,
