@@ -293,7 +293,7 @@
       // Make a cachy stimulus: randomly pick a stimulus from triplet_stim_f,
       //   replacing the third image as the first. Then randomize this stimulus.
       var cachy_stimulus = [];
-      for (var image_url: triplet_stim_f[catchy_index]){
+      for (var image_url in triplet_stim_f[catchy_index]){
         cachy_stimulus.push(image_url);
       }
       cachy_stimulus[2] = cachy_stimulus[0];
