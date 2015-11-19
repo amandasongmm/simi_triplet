@@ -252,7 +252,7 @@
 
 
     /* define test block */
-    var triplet_stim_f = readTextFile("https://raw.githubusercontent.com/amandasongmm/filesPublic/master/nov100_smalltest.csv");
+    var triplet_stim_f = readTextFile("https://raw.githubusercontent.com/amandasongmm/filesPublic/master/nov_100.csv");
     var prac_triplet_stim_f = readTextFile("https://raw.githubusercontent.com/amandasongmm/filesPublic/master/august/tripletPractice.txt");
 
     function getAllImages() {
@@ -388,15 +388,15 @@
     }
 
     var experiment = [];
-    // experiment.push(face_images_explore_ready_block);
-    // experiment.push(face_example_chunk);
-    // // experiment.push(instruction_doublet_chunk);
-    // experiment.push(instruction_triplet_chunk);
-    // experiment.push(bad_examples_ready_block);
-    // experiment.push(bad_examples_chunk);
-    // // experiment.push(prac_no_inst_doublet_block);
-    // experiment.push(prac_no_inst_triplet_block);
-    // experiment.push(test_ready_block);
+    experiment.push(face_images_explore_ready_block);
+    experiment.push(face_example_chunk);
+    // experiment.push(instruction_doublet_chunk);
+    experiment.push(instruction_triplet_chunk);
+    experiment.push(bad_examples_ready_block);
+    experiment.push(bad_examples_chunk);
+    // experiment.push(prac_no_inst_doublet_block);
+    experiment.push(prac_no_inst_triplet_block);
+    experiment.push(test_ready_block);
     experiment.push(trial_chunk);
     experiment.push(welcome_survey_new_block);
     experiment.push(complete_block);
