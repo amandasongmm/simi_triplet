@@ -211,75 +211,67 @@ def generate_triplet_images():
 
   fig = plt.figure()
   num_triset_each_row = 3
+  row_num = 1
   for crts in classified_report_tuples:
-    col = 1
     for crt in crts:
       triplet_imgstrs = crt[3].split('=-=')
       fir_sec_thd_majresp_imgstrs = [crt[i].split('=-=') for i in range(4, 7)]
+      col_num = 1
       subplot_num = 1
-      fig.subplots_adjust(right=0.0)
       for imgstr in imgstrs:
-        panel = fig.add_subplot(1, 2, subplot_num)
+        panel = fig.add_subplot(row_num, col_num, subplot_num)
         img = imgstr_imgdata_dict[imgstr]
         imgplot = plt.imshow(img)
         a.set_title(imgstr)
         subplot_num += 1
-      fig.subplots_adjust(right=0.2)
       for maj_imgstrs in fir_sec_thd_majresp_imgstrs:
+        col_num += 1
+        subplot_num = 1
         for imgstr in maj_imgstrs:
-          
+          panel = fig.add_subplot(row_num, col_num, subplot_num)
+          img = imgstr_imgdata_dict[imgstr]
+          imgplot = plt.imshow(img)
+          a.set_title(imgstr)
+          subplot_num += 1
+    row_num += 1
 
+def report_majorityvote_stat():
+  majorities = get_majority_vote(1)
+  second_majorities = get_majority_vote(2)
+  third_majorities = get_majority_vote(3)
+  generate_histogram(
+      [majorities[key][2] for key in majorities],
+      'Majority Vote Ratio For Each Triplet',
+      'Ratio',
+      'Triplet',
+      'majority_vote_ratio'
+  )
+  report_tuples = [
+    (
+      round(majorities[key][2], 2),
+      round(second_majorities[key][2], 2),
+      round(third_majorities[key][2], 2)
+    ) for key in majorities
+  ]
+  report_tuples.sort(reverse=True)
 
-  a=fig.add_subplot(1,2,1)
-  img = mpimg.imread('../_static/stinkbug.png')
-  lum_img = img[:,:,0]
-  imgplot = plt.imshow(lum_img)
-  a.set_title('Before')
-  plt.colorbar(ticks=[0.1,0.3,0.5,0.7], orientation ='horizontal')
-  a=fig.add_subplot(1,2,2)
-  imgplot = plt.imshow(lum_img)
-  imgplot.set_clim(0.0,0.7)
-  a.set_title('After')
-  plt.colorbar(ticks=[0.1,0.3,0.5,0.7], orientation='horizontal')
+  for t in report_tuples:
+    print t[0], '\t\t\t', t[1], '\t\t\t\t', t[2]
 
-
-s = get_subject_consistency()
-majorities = get_majority_vote(1)
-second_majorities = get_majority_vote(2)
-third_majorities = get_majority_vote(3)
+def report_selfconsistency_gtconsistency_by_workerid():
+  s = get_subject_consistency()
+  b = generate_worker_gt_consistency_vector()
+  print 'workerid, self-consistency, gt_consistency'
+  for i in range(1, 11):
+    print i, s[i], b[i]
 
 # get_response_inconsistency()
-# print generate_groundtruthvector()
-b = generate_worker_gt_consistency_vector()
+# generate_groundtruthvector()
 
+# report_selfconsistency_gtconsistency_by_workerid
 
-generate_histogram(
-    [majorities[key][2] for key in majorities],
-    'Majority Vote Ratio For Each Triplet',
-    'Ratio',
-    'Triplet',
-    'majority_vote_ratio'
-)
-
-report_tuples = [
-  (
-    round(majorities[key][2], 2),
-    round(second_majorities[key][2], 2),
-    round(third_majorities[key][2], 2)
-  ) for key in majorities
-]
-report_tuples.sort(reverse=True)
-
-for t in report_tuples:
-  print t[0], '\t\t\t', t[1], '\t\t\t\t', t[2]
-
-
-# print 'workerid, self-consistency, gt_consistency'
-# for i in range(1, 11):
-#   print i, s[i], b[i]
-
-
-
+# report_majorityvote_stat
+generate_triplet_images()
 
 
 
