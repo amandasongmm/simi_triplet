@@ -2,6 +2,9 @@ from collections import defaultdict
 import matplotlib.pyplot as plt
 import plotly.plotly as py
 import matplotlib.image as mpimg
+from matplotlib.widgets import Button
+import urllib2
+import os
 
 
 def get_workerid_data_dict():
@@ -179,13 +182,13 @@ def generate_triplet_images():
   third_majorities = get_majority_vote(3)
   report_tuples = [
     (
-      round(majorities[key][2], 2), # count ratio of 1st majority
-      round(second_majorities[key][2], 2), # count ratio of second
-      round(third_majorities[key][2], 2), # count rati of third
+      round(majorities[triplet_str][2], 2), # count ratio of 1st majority
+      round(second_majorities[triplet_str][2], 2), # count ratio of second
+      round(third_majorities[triplet_str][2], 2), # count rati of third
       triplet_str, # a string representing a triplet as img1=-=img2=-=img3
-      majorities[key][0] # a string representing response of 1st majority as resp1=-=resp2
-      second_majorities[key][0], # string for response of 2nd majority
-      third_majorities[key][0], # string for response of third
+      majorities[triplet_str][0], # a string representing response of 1st majority as resp1=-=resp2
+      second_majorities[triplet_str][0], # string for response of 2nd majority
+      third_majorities[triplet_str][0], # string for response of third
     ) for triplet_str in majorities
   ]
   report_tuples.sort(reverse=True)
@@ -197,43 +200,60 @@ def generate_triplet_images():
     [t for t in report_tuples if t[0] >= 0.45 and t[0] < 0.6 and t[2] < 0.2],
     [t for t in report_tuples if t[0] < 0.45],
   ]
+  ### Lengths of classified_report_tuples: 12, 28, 24, 7
 
-  print 'Preloading images...'
   imgstr_imgdata_dict = dict()
   for rt in report_tuples:
     triplet_str = rt[3]
     imgstrs = triplet_str.split('=-=')
     for imgstr in imgstrs:
       imgstr_imgdata_dict[imgstr] = None
-  for imgstr in imgstr_imgdata_dict:
-    imgstr_imgdata_dict[imgstr] = mpimg.imread('http://52.23.229.132/2kFemale/' + imgstr)
+
+  images_folder = os.path.expanduser("~/Desktop/nov100_analysis_images_downloaded")
+  if not os.path.isdir(images_folder):
+    print 'Images not found locally. Downloading images to: ' + images_folder
+    print 'You can delete it from desktop after this program is not needed.'
+    os.system('mkdir ' + images_folder)
+    for i, imgstr in enumerate(imgstr_imgdata_dict):
+      img_data = urllib2.urlopen('http://52.23.229.132/' + imgstr + '.jpg')
+      with open(images_folder + '/' + imgstr.split('/')[-1] + '.jpg', 'w') as f:
+        f.write(img_data.read())
+    print 'Download complete.'
+
+  print 'Preloading images... '
+  for i, imgstr in enumerate(imgstr_imgdata_dict):
+    imgstr_imgdata_dict[imgstr] =\
+      plt.imread(images_folder + '/' + imgstr.split('/')[-1] + '.jpg', format='JPG')
   print 'Preloading complete'
 
   fig = plt.figure()
+  axes = plt.gca()
   num_triset_each_row = 3
-  row_num = 1
-  for crts in classified_report_tuples:
-    for crt in crts:
+  row_num = 7 # 10 triplets from the first 3 groups, 7 from the last
+  col_num = 9 # 3+2+2+2, number of images each row
+  subplot_num = 1
+  for crts in classified_report_tuples[3:4]:
+    for crt in crts[:7]:
       triplet_imgstrs = crt[3].split('=-=')
       fir_sec_thd_majresp_imgstrs = [crt[i].split('=-=') for i in range(4, 7)]
-      col_num = 1
-      subplot_num = 1
-      for imgstr in imgstrs:
+      for imgstr in triplet_imgstrs:
+        print row_num, col_num, subplot_num
         panel = fig.add_subplot(row_num, col_num, subplot_num)
         img = imgstr_imgdata_dict[imgstr]
         imgplot = plt.imshow(img)
-        a.set_title(imgstr)
+        plt.axis('off')
+        # panel.set_title(imgstr)
         subplot_num += 1
       for maj_imgstrs in fir_sec_thd_majresp_imgstrs:
-        col_num += 1
-        subplot_num = 1
         for imgstr in maj_imgstrs:
           panel = fig.add_subplot(row_num, col_num, subplot_num)
           img = imgstr_imgdata_dict[imgstr]
           imgplot = plt.imshow(img)
-          a.set_title(imgstr)
+          plt.axis('off')
+          # panel.set_title(imgstr)
           subplot_num += 1
-    row_num += 1
+  fig.subplots_adjust(wspace=0.0)
+  plt.show()
 
 def report_majorityvote_stat():
   majorities = get_majority_vote(1)
@@ -265,15 +285,36 @@ def report_selfconsistency_gtconsistency_by_workerid():
   for i in range(1, 11):
     print i, s[i], b[i]
 
+def report_tripletindex_with_twoworkerchoicesindex():
+  workerid_response_dict = get_workerid_response_dict()
+  triplet_workerchoices_dict = defaultdict(dict)
+  for worker_id in workerid_response_dict:
+    stimulus_tworesponse_dict = workerid_response_dict[worker_id]
+    for triplet in stimulus_tworesponse_dict:
+      two_response = stimulus_tworesponse_dict[triplet]
+      resp1_str = ','.join([imgstr.split('/')[-1][1:] for imgstr in two_response[0]])
+      resp2_str = ','.join([imgstr.split('/')[-1][1:] for imgstr in two_response[1]])
+      triplet_workerchoices_dict[triplet][worker_id] = ','.join([resp1_str, resp2_str])
+
+  with open('report_triplet_with_twoworkerchoices.tsv', 'w') as f:
+    for i, triplet in enumerate(triplet_workerchoices_dict):
+      triplet_str = ','.join([t.split('/')[-1][1:] for t in triplet.split('=-=')])
+      print_list = [str(i), triplet_str]
+      for worker_id in range(1, 11):
+        print_list.append(triplet_workerchoices_dict[triplet][worker_id])
+      f.write('\t'.join(print_list) + '\n')
+
+
 # get_response_inconsistency()
 # generate_groundtruthvector()
 
 # report_selfconsistency_gtconsistency_by_workerid
 
 # report_majorityvote_stat
+
 generate_triplet_images()
 
-
+# report_tripletindex_with_twoworkerchoicesindex()
 
 
 
