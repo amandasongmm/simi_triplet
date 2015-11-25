@@ -296,7 +296,7 @@
     }
 
     //catchy question
-    var num_phases = 2;
+    var num_phases = 4;
     var triplet_stim = [];
     var num_stimuli_each_phase = triplet_stim_f.length / num_phases;
     for ( var i = 0; i < num_phases; i++){
@@ -317,12 +317,12 @@
 
       // Push this cachy stimulus into triplet_stim, then randomize triplet_stim
       triplet_stim[i].push(cachy_stimulus);
-      triplet_stim[i] = jsPsych.randomization.repeat(triplet_stim[i],1);
+      triplet_stim[i] = jsPsych.randomization.repeat(triplet_stim[i], 1);
     }
     var test_triplet1_stim = triplet_stim[0];
     var test_triplet2_stim = triplet_stim[1];
-    var test_triplet3_stim = jsPsych.randomization.repeat(triplet_stim[0],1);;
-    var test_triplet4_stim = jsPsych.randomization.repeat(triplet_stim[1],1);
+    var test_triplet3_stim = triplet_stim[2];
+    var test_triplet4_stim = triplet_stim[3];
 
     /*test_doublet1_stim = test_doublet1_stim.slice(0,2);
     test_doublet2_stim = test_doublet2_stim.slice(0,2);
