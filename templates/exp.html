@@ -61,17 +61,18 @@
 
         //read a text file
     function readTextFile(file){
-       htmlobj=$.ajax({url:file,async:false});
-       var lines = htmlobj.responseText;
-       var lineArray = lines.split(/\n/g);
-       for (a in lineArray) {
-           lineArray[a] = lineArray[a].split(","); 
-           for( b in lineArray[a]){
-             lineArray[a][b] = 'http://52.23.229.132/2kFemale/' + lineArray[a][b];
-           }
-       }
-       lineArray = lineArray.slice(0,lineArray.length-1);
-       return lineArray;
+      console.log(file);
+      htmlobj=$.ajax({url:file,async:false});
+      var lines = htmlobj.responseText;
+      var lineArray = lines.split(/\n/g);
+      for (a in lineArray) {
+        lineArray[a] = lineArray[a].split(","); 
+        for( b in lineArray[a]){
+          lineArray[a][b] = 'http://52.23.229.132/2kFemale/' + lineArray[a][b];
+        }
+      }
+      lineArray = lineArray.slice(0,lineArray.length-1);
+      return lineArray;
    }
 
     var post_trial_gap = function() {
