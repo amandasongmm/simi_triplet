@@ -118,10 +118,10 @@
           //console.log(pressed_set);
         }
 
-        // $('.top').click(function(){
-        //   $('.top').css({'border-width': '3', 'border-color': '#E74C3C', 'border-style': 'solid'});
-        //   report_pressed('0');
-        // });
+        $('.top').click(function(){
+          $('.top').css({'border-width': '3', 'border-color': 'black', 'border-style': 'solid'});
+          // report_pressed('0');
+        });
         $('.left').click(function(){
           $('.left').css({'border-width': '3', 'border-color': '#E74C3C', 'border-style': 'solid'});
           report_pressed('1');

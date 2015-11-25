@@ -10,7 +10,9 @@
         <script src="/static/js/myjspsych/jspsych.js" type="text/javascript"></script>
         <script src="/static/js/myjspsych/plugins/jspsych-text.js" type="text/javascript"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
-        <script src="/static/js/myjspsych/plugins/jspsych-anchored-triplet.js" type="text/javascript"></script>
+        <script src="/static/js/myjspsych/plugins/jspsych-similarity.js" type="text/javascript"></script>
+        <script src="/static/js/myjspsych/plugins/jspsych-similarity-custom.js" type="text/javascript"></script>
+        <script src="/static/js/myjspsych/plugins/jspsych-custom-triplet.js" type="text/javascript"></script>
         <script src="/static/js/myjspsych/plugins/jspsych-text.js" type="text/javascript"></script>
         <script src="/static/js/myjspsych/plugins/jspsych-survey-select.js" type="text/javascript"></script>
         <script src="/static/js/myjspsych/plugins/jspsych-survey-text.js" type="text/javascript"></script>
@@ -41,23 +43,6 @@
     var assignmentId = ids[1];
     var adServerLoc = "{{ adServerLoc }}"; // the location of your ad (so you can send user back at end of experiment)
     var mode = "{{ mode }}"; // is this running live, sandbox, or in debug mode?
-
-    htmlobj = $.ajax({
-      url: "http://52.24.142.90/update_counter.php",
-      async: false,
-      method: "POST",
-      data: { assignmentID: assignmentId, workerID: workerId, hitID: '3'}
-    });
-    console.log('Updated counter: ' + htmlobj.responseText);
-    htmlobj = $.ajax({
-      url: "http://52.24.142.90/give_counter.php",
-      async: false,
-      method: "POST",
-      data: { assignmentID: assignmentId, workerID: workerId, hitID: '3'}
-    });
-    var outputCounter = htmlobj.responseText;
-    console.log('Current counter: ' + outputCounter);
-    var counter = parseInt(outputCounter.split(' ')[3]);
 
         //read a text file
     function readTextFile(file){
@@ -267,7 +252,7 @@
 
 
     /* define test block */
-    var triplet_stim_f = readTextFile("https://github.com/amandasongmm/filesPublic/tree/master/nov22_anchored/tri_set" + counter.toString() + '.txt');
+    var triplet_stim_f = readTextFile("https://raw.githubusercontent.com/amandasongmm/filesPublic/master/nov_100.csv");
     var prac_triplet_stim_f = readTextFile("https://raw.githubusercontent.com/amandasongmm/filesPublic/master/august/tripletPractice.txt");
 
     function getAllImages() {
@@ -334,7 +319,7 @@
     //practice with instruction blocks
     trial_num =1;
     var prac_triplet_block = {
-      type: 'anchored_triplet',
+      type: 'custom_triplet',
       stimuli: prac_triplet_stim,
       text: '<div style="text-align: left; margin-top:30px;"> <p>This is an example of a <span class="emp">Face Triplet Task</span>, you need to <span class="emp">click on the two images</span> that look most similar to you.</div>',
       timing_post_trial: post_trial_gap,
@@ -357,7 +342,7 @@
     };
     //practice with no instruction blocks
     var prac_no_inst_triplet_block = {
-      type: 'anchored_triplet',
+      type: 'custom_triplet',
       stimuli: prac_no_inst_triplet_stim,
       timing_post_trial: post_trial_gap,
       trial_num: trial_num,
@@ -366,7 +351,7 @@
     phase_num  = 1;
     //test blocks
     var test_triplet1_block = {
-      type: 'anchored_triplet',
+      type: 'custom_triplet',
       stimuli: test_triplet1_stim,
       timing_post_trial: post_trial_gap,
       trial_num: trial_num,
@@ -374,7 +359,7 @@
     };  
     phase_num +=1;
     var test_triplet2_block = {
-      type: 'anchored_triplet',
+      type: 'custom_triplet',
       stimuli: test_triplet2_stim,
       timing_post_trial: post_trial_gap,
       trial_num: trial_num,
@@ -382,7 +367,7 @@
     };
     phase_num +=1;
     var test_triplet3_block = {
-      type: 'anchored_triplet',
+      type: 'custom_triplet',
       stimuli: test_triplet3_stim,
       timing_post_trial: post_trial_gap,
       trial_num: trial_num,
@@ -390,7 +375,7 @@
     };  
     phase_num +=1;
     var test_triplet4_block = {
-      type: 'anchored_triplet',
+      type: 'custom_triplet',
       stimuli: test_triplet4_stim,
       timing_post_trial: post_trial_gap,
       trial_num: trial_num,
