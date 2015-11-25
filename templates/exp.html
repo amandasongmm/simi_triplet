@@ -87,7 +87,7 @@
    
     var face_images_explore_ready_block = {
       type: "text",
-      text: '<div> <h2 class="emp"> Face Similarities Test</h2> <hr> <div class="well"> <p>In this HIT, your task is to judge the similarities between faces.</p> <div class="row"> <div class="col-md-12"> <h5><b>Face Triplet Task</b></h5> <p> You will see 3 faces. <b>Click on the two faces that you think are most similar</b> to each other. </p> <img src="/static/images/faceExamples/trial2.png" style="width:100%" /> </div> </div> <p style="margin-bottom: 30px;">We will walk you through the task. </p> <p>First, you will see some <span class="emp">face examples</span>.</p> <p>Next there will be a <span class="emp">practice session </span> to warm you up.</p> <p>Then comes the <span class="emp">actual task</span>. You will be the judge of various faces!</p> </div></div>',
+      text: '<div> <h2 class="emp"> Face Similarities Test</h2> <hr> <div class="well"> <p>In this HIT, your task is to judge the similarities between faces.</p> <div class="row"> <div class="col-md-12"> <h5><b>Face Triplet Task</b></h5> <p> You will see 3 faces. <b>Click on one of the two faces at the bottom that you think are most similar to the face at the top</b> </p> <img src="/static/images/faceExamples/trial2.png" style="width:100%" /> </div> </div> <p style="margin-bottom: 30px;">We will walk you through the task. </p> <p>First, you will see some <span class="emp">face examples</span>.</p> <p>Next there will be a <span class="emp">practice session </span> to warm you up.</p> <p>Then comes the <span class="emp">actual task</span>. You will be the judge of various faces!</p> </div></div>',
       timing_post_trial: post_trial_gap
     };
 
@@ -268,7 +268,7 @@
 
     /* define test block */
     // var triplet_stim_f = readTextFile("http://52.24.142.90/filesPublic/nov22_anchored/tri_set" + counter.toString() + '.txt');
-    var triplet_stim_f = readTextFile("https://raw.githubusercontent.com/amandasongmm/filesPublic/master/nov_100.csv");
+    var triplet_stim_f = readTextFile("https://raw.githubusercontent.com/amandasongmm/filesPublic/master/oct_triplet_only/tri_set1.txt");
     var prac_triplet_stim_f = readTextFile("https://raw.githubusercontent.com/amandasongmm/filesPublic/master/august/tripletPractice.txt");
 
     function getAllImages() {
@@ -337,7 +337,7 @@
     var prac_triplet_block = {
       type: 'anchored_triplet',
       stimuli: prac_triplet_stim,
-      text: '<div style="text-align: left; margin-top:30px;"> <p>This is an example of a <span class="emp">Face Triplet Task</span>, you need to <span class="emp">click on the two images</span> that look most similar to you.</div>',
+      text: '<div style="text-align: left; margin-top:30px;"> <p>This is an example of a <span class="emp">Face Triplet Task</span>, you need to <span class="emp">click on one of the two images at the bottom</span> that look most similar to the face at the top.</div>',
       timing_post_trial: post_trial_gap,
       trial_num: trial_num,
     };
