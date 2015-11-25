@@ -64,6 +64,7 @@
       console.log(file);
       htmlobj=$.ajax({url:file,async:false});
       var lines = htmlobj.responseText;
+      console.log('lines: ' + lines);
       var lineArray = lines.split(/\n/g);
       for (a in lineArray) {
         lineArray[a] = lineArray[a].split(","); 
