@@ -67,7 +67,12 @@
         display_element.append($('<img>', {
           src: trial.x_path,
           "id": 'jspsych-xab-stimulus1',
-          "class": 'top'
+          "class": 'top',
+          "css": {
+            'border-width': '3',
+            'border-color': 'black',
+            'border-style': 'solid',
+          },
         }));
         display_element.append($('<div>', {
           "id": 'jspsych-xab-stimulus2',
@@ -118,10 +123,6 @@
           //console.log(pressed_set);
         }
 
-        $('.top').click(function(){
-          $('.top').css({'border-width': '3', 'border-color': 'black', 'border-style': 'solid'});
-          // report_pressed('0');
-        });
         $('.left').click(function(){
           $('.left').css({'border-width': '3', 'border-color': '#E74C3C', 'border-style': 'solid'});
           report_pressed('1');
