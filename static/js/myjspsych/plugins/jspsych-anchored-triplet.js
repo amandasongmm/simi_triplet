@@ -69,7 +69,7 @@
           "id": 'jspsych-xab-stimulus1',
           "class": 'top',
           "css": {
-            'border-width': '3',
+            'border-width': '4',
             'border-color': 'black',
             'border-style': 'solid',
           },
@@ -124,11 +124,11 @@
         }
 
         $('.left').click(function(){
-          $('.left').css({'border-width': '3', 'border-color': '#E74C3C', 'border-style': 'solid'});
+          $('.left').css({'border-width': '4', 'border-color': '#E74C3C', 'border-style': 'solid'});
           report_pressed('1');
         });
         $('.right').click(function(){
-          $('.right').css({'border-width': '3', 'border-color': '#E74C3C', 'border-style': 'solid'});
+          $('.right').css({'border-width': '4', 'border-color': '#E74C3C', 'border-style': 'solid'});
           report_pressed('2');
         });
         
