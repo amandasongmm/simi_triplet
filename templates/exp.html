@@ -67,7 +67,7 @@
       for (a in lineArray) {
         lineArray[a] = lineArray[a].split(","); 
         for( b in lineArray[a]){
-          lineArray[a][b] = 'http://52.23.229.132/2kFemale/' + lineArray[a][b];
+          lineArray[a][b] = 'http://52.24.142.90/bad_examples/' + lineArray[a][b];
         }
       }
       lineArray = lineArray.slice(0,lineArray.length-1);
@@ -268,7 +268,8 @@
 
     /* define test block */
     // var triplet_stim_f = readTextFile("http://52.24.142.90/filesPublic/nov22_anchored/tri_set" + counter.toString() + '.txt');
-    var triplet_stim_f = readTextFile("https://raw.githubusercontent.com/amandasongmm/filesPublic/master/oct_triplet_only/tri_set1.txt");
+    // var triplet_stim_f = readTextFile("https://raw.githubusercontent.com/amandasongmm/filesPublic/master/oct_triplet_only/tri_set1.txt");
+    var triplet_stim_f = readTextFile("https://raw.githubusercontent.com/amandasongmm/filesPublic/master/bad_examples.csv");
     var prac_triplet_stim_f = readTextFile("https://raw.githubusercontent.com/amandasongmm/filesPublic/master/august/tripletPractice.txt");
 
     function getAllImages() {
@@ -301,7 +302,7 @@
     var triplet_stim = [];
     var num_stimuli_each_phase = triplet_stim_f.length / num_phases;
     for ( var i = 0; i < num_phases; i++){
-      var catchy_index = getRandomInt (0, num_stimuli_each_phase);
+      var catchy_index = getRandomInt (0, num_stimuli_each_phase - 1);
 
       // concatenate triplet_stimlist with a list of 50 stimuli.
       triplet_stim[i] = [].concat(triplet_stim_f.slice(i*num_stimuli_each_phase, (i+1)*num_stimuli_each_phase));
@@ -313,8 +314,11 @@
           image_url = triplet_stim[i][catchy_index][j];
           cachy_stimulus.push(image_url);
       }
-      cachy_stimulus[2] = cachy_stimulus[0];
-      cachy_stimulus = jsPsych.randomization.repeat(cachy_stimulus, 1);
+      if Math.random() < 0.5{
+        cachy_stimulus[1] = cachy_stimulus[0];
+      } else {
+        cachy_stimulus[2] = cachy_stimulus[0];
+      }
 
       // Push this cachy stimulus into triplet_stim, then randomize triplet_stim
       triplet_stim[i].push(cachy_stimulus);
