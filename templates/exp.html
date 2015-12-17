@@ -74,21 +74,6 @@
       return lineArray;
    }
 
-    function readTextFileTmp(file){
-      htmlobj=$.ajax({url:file,async:false});
-      var lines = htmlobj.responseText;
-      var lineArray = lines.split(/\n/g);
-      for (a in lineArray) {
-        lineArray[a] = lineArray[a].split(","); 
-        for( b in lineArray[a]){
-          lineArray[a][b] = 'http://52.24.142.90/images/bad_examples/' + lineArray[a][b];
-        }
-      }
-      lineArray = lineArray.slice(0,lineArray.length-1);
-      return lineArray;
-   }
-
-
     var post_trial_gap = function() {
       return Math.floor( Math.random() * 750 );
     }
@@ -283,8 +268,7 @@
 
     /* define test block */
     // var triplet_stim_f = readTextFile("http://52.24.142.90/filesPublic/nov22_anchored/tri_set" + counter.toString() + '.txt');
-    // var triplet_stim_f = readTextFile("https://raw.githubusercontent.com/amandasongmm/filesPublic/master/oct_triplet_only/tri_set1.txt");
-    var triplet_stim_f = readTextFileTmp("https://raw.githubusercontent.com/amandasongmm/filesPublic/master/bad_examples.csv");
+    var triplet_stim_f = readTextFile("https://raw.githubusercontent.com/amandasongmm/filesPublic/master/oct_triplet_only/tri_set1.txt");
     var prac_triplet_stim_f = readTextFile("https://raw.githubusercontent.com/amandasongmm/filesPublic/master/august/tripletPractice.txt");
 
     function getAllImages() {
@@ -423,15 +407,15 @@
     }
 
     var experiment = [];
-    // experiment.push(face_images_explore_ready_block);
-    // experiment.push(face_example_chunk);
-    // // experiment.push(instruction_doublet_chunk);
-    // experiment.push(instruction_triplet_chunk);
-    // experiment.push(bad_examples_ready_block);
-    // experiment.push(bad_examples_chunk);
-    // // experiment.push(prac_no_inst_doublet_block);
-    // experiment.push(prac_no_inst_triplet_block);
-    // experiment.push(test_ready_block);
+    experiment.push(face_images_explore_ready_block);
+    experiment.push(face_example_chunk);
+    // experiment.push(instruction_doublet_chunk);
+    experiment.push(instruction_triplet_chunk);
+    experiment.push(bad_examples_ready_block);
+    experiment.push(bad_examples_chunk);
+    // experiment.push(prac_no_inst_doublet_block);
+    experiment.push(prac_no_inst_triplet_block);
+    experiment.push(test_ready_block);
     experiment.push(trial_chunk);
     experiment.push(welcome_survey_new_block);
     experiment.push(complete_block);
