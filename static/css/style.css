@@ -101,6 +101,6 @@ label {
 }
 
 .jspsych_target{
-	margin-bottom:8%;
+	margin: auto auto 8% auto;
 	display:inline-block;
 }
