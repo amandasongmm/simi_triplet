@@ -10,7 +10,7 @@
         <script src="/static/js/myjspsych/jspsych.js" type="text/javascript"></script>
         <script src="/static/js/myjspsych/plugins/jspsych-text.js" type="text/javascript"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
-        <script src="/static/js/myjspsych/plugins/jspsych-anchored-triplet.js" type="text/javascript"></script>
+        <script src="/static/js/myjspsych/plugins/jspsych-similarity.js" type="text/javascript"></script>
         <script src="/static/js/myjspsych/plugins/jspsych-text.js" type="text/javascript"></script>
         <script src="/static/js/myjspsych/plugins/jspsych-survey-select.js" type="text/javascript"></script>
         <script src="/static/js/myjspsych/plugins/jspsych-survey-text.js" type="text/javascript"></script>
@@ -59,7 +59,7 @@
     console.log('Current counter: ' + outputCounter);
     var counter = parseInt(outputCounter.split(' ')[3]);
 
-        //read a text file
+    //read a text file
     function readTextFile(file){
       htmlobj=$.ajax({url:file,async:false});
       var lines = htmlobj.responseText;
